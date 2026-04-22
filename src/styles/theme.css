@@ -1,0 +1,248 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* ========================================
+     KROWE DESIGN TOKENS — PASS 1
+     ======================================== */
+
+  /* === COLORS (LOCKED) === */
+
+  /* Primary Orange */
+  --primary: #f97316;
+  --primary-hover: color-mix(in srgb, var(--primary) 88%, black);
+  --primary-soft: color-mix(in srgb, var(--primary) 12%, white);
+  --primary-accent: #ff6a4d;
+  --primary-foreground: #ffffff;
+
+  /* Neutrals — Warm canvas */
+  --background: oklch(99% 0.003 60);
+  --surface-subtle: oklch(98% 0.005 60);
+  --foreground: oklch(20% 0.01 60);
+  --muted-foreground: oklch(50% 0.01 60);
+  --border: oklch(92% 0.005 60);
+
+  /* Semantic Colors */
+  --success: #15803d;
+  --success-soft: color-mix(in srgb, var(--success) 12%, white);
+  --warning: #b45309;
+  --warning-soft: color-mix(in srgb, var(--warning) 12%, white);
+  --danger: #b91c1c;
+  --danger-soft: color-mix(in srgb, var(--danger) 12%, white);
+
+  /* Shadow tint — warm near-black with orange mix */
+  --shadow-tint: color-mix(in oklch, var(--primary) 8%, oklch(10% 0 0));
+
+  /* === TYPOGRAPHY === */
+
+  /* Font Families */
+  --font-serif: 'Instrument Serif', serif;
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Geist Mono', 'Monaco', 'Courier New', monospace;
+
+  /* Type Scale — 10 styles */
+
+  /* Display XL — landing hero (serif) */
+  --type-display-xl-family: var(--font-serif);
+  --type-display-xl-size: 5rem;
+  --type-display-xl-line-height: 1.1;
+  --type-display-xl-letter-spacing: -0.03em;
+  --type-display-xl-weight: 400;
+
+  /* Display L — sub-hero (serif) */
+  --type-display-l-family: var(--font-serif);
+  --type-display-l-size: 3.5rem;
+  --type-display-l-line-height: 1.15;
+  --type-display-l-letter-spacing: -0.02em;
+  --type-display-l-weight: 400;
+
+  /* Display M — page titles, report section headers (serif) */
+  --type-display-m-family: var(--font-serif);
+  --type-display-m-size: 2.25rem;
+  --type-display-m-line-height: 1.25;
+  --type-display-m-letter-spacing: -0.015em;
+  --type-display-m-weight: 400;
+
+  /* H1 — section headers (sans) */
+  --type-h1-family: var(--font-sans);
+  --type-h1-size: 1.875rem;
+  --type-h1-line-height: 1.3;
+  --type-h1-letter-spacing: -0.01em;
+  --type-h1-weight: 600;
+
+  /* H2 — subsection headers (sans) */
+  --type-h2-family: var(--font-sans);
+  --type-h2-size: 1.5rem;
+  --type-h2-line-height: 1.35;
+  --type-h2-letter-spacing: -0.008em;
+  --type-h2-weight: 600;
+
+  /* H3 — card titles (sans) */
+  --type-h3-family: var(--font-sans);
+  --type-h3-size: 1.25rem;
+  --type-h3-line-height: 1.4;
+  --type-h3-letter-spacing: -0.005em;
+  --type-h3-weight: 600;
+
+  /* Body L — intro paragraphs (sans) */
+  --type-body-l-family: var(--font-sans);
+  --type-body-l-size: 1.125rem;
+  --type-body-l-line-height: 1.6;
+  --type-body-l-letter-spacing: 0;
+  --type-body-l-weight: 400;
+
+  /* Body — standard text (sans) */
+  --type-body-family: var(--font-sans);
+  --type-body-size: 1rem;
+  --type-body-line-height: 1.6;
+  --type-body-letter-spacing: 0;
+  --type-body-weight: 400;
+
+  /* Body S — secondary text (sans) */
+  --type-body-s-family: var(--font-sans);
+  --type-body-s-size: 0.875rem;
+  --type-body-s-line-height: 1.5;
+  --type-body-s-letter-spacing: 0;
+  --type-body-s-weight: 400;
+
+  /* Caption — labels, metadata (sans) */
+  --type-caption-family: var(--font-sans);
+  --type-caption-size: 0.75rem;
+  --type-caption-line-height: 1.4;
+  --type-caption-letter-spacing: 0.02em;
+  --type-caption-weight: 500;
+  /* Caption uppercase variant */
+  --type-caption-upper-transform: uppercase;
+  --type-caption-upper-letter-spacing: 0.08em;
+
+  /* === SPACING (4pt grid) === */
+  --spacing-xs: 0.125rem;      /* 2px */
+  --spacing-sm: 0.25rem;        /* 4px */
+  --spacing-md: 0.5rem;         /* 8px */
+  --spacing-lg: 0.75rem;        /* 12px */
+  --spacing-xl: 1rem;           /* 16px */
+  --spacing-2xl: 1.5rem;        /* 24px */
+  --spacing-3xl: 2rem;          /* 32px */
+  --spacing-4xl: 3rem;          /* 48px */
+  --spacing-5xl: 4rem;          /* 64px */
+  --spacing-6xl: 6rem;          /* 96px */
+
+  /* === RADIUS === */
+  --radius-sm: 6px;     /* chips */
+  --radius-md: 10px;    /* utility buttons, small cards */
+  --radius-lg: 16px;    /* cards */
+  --radius-xl: 24px;    /* modals, hero cards */
+  --radius-full: 9999px; /* pill buttons, badges */
+
+  /* === SHADOWS (warm-tinted) === */
+
+  /* Level 1 — resting cards (subtle) */
+  --shadow-1: 0 1px 3px 0 color-mix(in srgb, var(--shadow-tint) 10%, transparent),
+              0 1px 2px -1px color-mix(in srgb, var(--shadow-tint) 10%, transparent);
+
+  /* Level 2 — card hover (lifted) */
+  --shadow-2: 0 4px 6px -1px color-mix(in srgb, var(--shadow-tint) 10%, transparent),
+              0 2px 4px -2px color-mix(in srgb, var(--shadow-tint) 10%, transparent);
+
+  /* Level 3 — modals (elevated) */
+  --shadow-3: 0 10px 15px -3px color-mix(in srgb, var(--shadow-tint) 10%, transparent),
+              0 4px 6px -4px color-mix(in srgb, var(--shadow-tint) 10%, transparent);
+
+  /* Level 4 — primary button hover glow */
+  --shadow-4: 0 8px 24px -8px color-mix(in oklch, var(--primary) 40%, transparent);
+
+  /* === MOTION === */
+
+  /* Easing — signature smooth ease-out */
+  --ease-out-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Durations */
+  --duration-instant: 100ms;
+  --duration-fast: 180ms;
+  --duration-normal: 280ms;
+  --duration-slow: 500ms;
+  --duration-hero: 850ms;
+
+  /* Stagger step for list animations */
+  --stagger-step: 85ms;
+
+  /* === SIGNATURE MOTIFS === */
+
+  /* Ember glyph (use as ::before content or inline SVG) */
+  --ember-size-sm: 12px;
+  --ember-size-md: 14px;
+  --ember-size-lg: 16px;
+
+  /* Blueprint grid background pattern */
+  --blueprint-grid: radial-gradient(circle, color-mix(in oklch, var(--primary) 6%, transparent) 1px, transparent 1px);
+  --blueprint-grid-size: 28px 28px;
+}
+
+/* Docs + app dark mode — warm neutrals (not pure gray) */
+.dark {
+  color-scheme: dark;
+  --background: oklch(18% 0.012 60);
+  --surface-subtle: oklch(22% 0.014 60);
+  --foreground: oklch(96% 0.01 60);
+  --muted-foreground: oklch(68% 0.02 58);
+  --border: oklch(30% 0.02 58);
+  --shadow-tint: color-mix(in oklch, var(--primary) 12%, oklch(12% 0.01 60));
+}
+
+/* === TAILWIND v4 THEME MAPPING === */
+@theme inline {
+  /* Colors */
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-accent: var(--primary-accent);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-background: var(--background);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  /* Shadows */
+  --shadow-1: var(--shadow-1);
+  --shadow-2: var(--shadow-2);
+  --shadow-3: var(--shadow-3);
+  --shadow-4: var(--shadow-4);
+}
+
+/* === BASE LAYER === */
+@layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-line-height);
+    font-weight: var(--type-body-weight);
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
