@@ -130,6 +130,91 @@ export function DocCardGrid({ children }: { children: ReactNode }) {
   );
 }
 
+/** Bordered scroll region for embedding live library patterns in docs. */
+export function DocLivePreview({
+  label,
+  children,
+  maxHeight = 'min(78vh, 640px)',
+  minHeight,
+}: {
+  label?: string;
+  children: ReactNode;
+  maxHeight?: string;
+  minHeight?: string | number;
+}) {
+  return (
+    <div style={{ marginTop: '1.25rem', marginBottom: '2rem' }}>
+      {label ? (
+        <p
+          style={{
+            ...docMuted,
+            marginBottom: '0.65rem',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 'var(--type-caption-size)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          {label}
+        </p>
+      ) : null}
+      <div
+        style={{
+          borderRadius: 'var(--radius-lg)',
+          border: '1px solid var(--border)',
+          background: 'var(--surface-subtle)',
+          overflow: 'auto',
+          maxHeight,
+          ...(minHeight !== undefined ? { minHeight } : {}),
+          /* Creates a containing block so pattern `position: fixed` footers stay inside the preview */
+          transform: 'translateZ(0)',
+          position: 'relative',
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/** Compact code sample — library reference, not full source files. */
+export function DocSnippet({ title, code }: { title?: string; code: string }) {
+  return (
+    <figure style={{ margin: '0.75rem 0 1.75rem' }}>
+      {title ? (
+        <figcaption
+          style={{
+            ...docMuted,
+            marginBottom: '0.5rem',
+            fontFamily: 'var(--font-sans)',
+            fontSize: 'var(--type-caption-size)',
+            fontWeight: 600,
+            color: 'var(--foreground)',
+          }}
+        >
+          {title}
+        </figcaption>
+      ) : null}
+      <pre
+        style={{
+          margin: 0,
+          padding: '1rem 1.15rem',
+          background: 'oklch(22% 0.02 60)',
+          color: 'oklch(96% 0.01 60)',
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid color-mix(in oklch, var(--border) 70%, oklch(22% 0.02 60))',
+          overflow: 'auto',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.8125rem',
+          lineHeight: 1.55,
+        }}
+      >
+        <code style={{ fontFamily: 'inherit' }}>{code.trim()}</code>
+      </pre>
+    </figure>
+  );
+}
+
 export function DocInfoCard({ title, description, code }: { title: string; description: string; code?: string }) {
   return (
     <div
@@ -167,6 +252,223 @@ export function DocInfoCard({ title, description, code }: { title: string; descr
           {code}
         </code>
       )}
+    </div>
+  );
+}
+
+/** Standard max-width shell for every /docs/* page body. */
+export const docsPageWrap: CSSProperties = {
+  maxWidth: '1200px',
+  margin: '0 auto',
+  padding: '3rem 2rem',
+};
+
+export type DocsHeroChip = { k: string; v: string };
+
+/** Editorial intro + token strip — shared visual language across docs tabs. */
+export function DocsHeroBento({
+  eyebrow,
+  title,
+  description,
+  chips,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  chips: DocsHeroChip[];
+}) {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+        gap: '1.25rem',
+        marginBottom: '2.75rem',
+        alignItems: 'stretch',
+      }}
+    >
+      <div
+        style={{
+          position: 'relative',
+          padding: '1.6rem 1.75rem',
+          borderRadius: 'var(--radius-xl)',
+          border: '1px solid var(--border)',
+          background:
+            'linear-gradient(118deg, var(--background) 0%, color-mix(in oklch, var(--primary) 5%, var(--background)) 45%, var(--surface-subtle) 100%)',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            top: '-35%',
+            right: '-12%',
+            width: 'min(52%, 200px)',
+            aspectRatio: '1',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, color-mix(in oklch, var(--primary) 20%, transparent) 0%, transparent 72%)',
+            pointerEvents: 'none',
+          }}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            bottom: '-28%',
+            left: '-6%',
+            width: '42%',
+            aspectRatio: '1',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, color-mix(in oklch, var(--primary-accent) 14%, transparent) 0%, transparent 70%)',
+            pointerEvents: 'none',
+          }}
+        />
+        <p
+          style={{
+            fontFamily: 'var(--type-caption-family)',
+            fontSize: 'var(--type-caption-size)',
+            fontWeight: 600,
+            letterSpacing: 'var(--type-caption-upper-letter-spacing)',
+            textTransform: 'var(--type-caption-upper-transform)',
+            color: 'var(--primary)',
+            margin: '0 0 0.65rem',
+            position: 'relative',
+          }}
+        >
+          {eyebrow}
+        </p>
+        <h2
+          style={{
+            fontFamily: 'var(--type-display-m-family)',
+            fontSize: 'clamp(1.35rem, 2.8vw, 1.85rem)',
+            lineHeight: 'var(--type-display-m-line-height)',
+            letterSpacing: 'var(--type-display-m-letter-spacing)',
+            fontWeight: 'var(--type-display-m-weight)',
+            color: 'var(--foreground)',
+            margin: '0 0 0.75rem',
+            maxWidth: '26ch',
+            position: 'relative',
+          }}
+        >
+          {title}
+        </h2>
+        <p style={{ ...docMuted, maxWidth: '56ch', margin: 0, position: 'relative' }}>{description}</p>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.65rem',
+          justifyContent: 'center',
+        }}
+      >
+        {chips.map((c) => (
+          <div
+            key={c.k}
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+              gap: '1rem',
+              padding: '0.85rem 1rem',
+              borderRadius: 'var(--radius-lg)',
+              border: '1px solid var(--border)',
+              background: 'var(--background)',
+              boxShadow: 'var(--shadow-1)',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 'var(--type-caption-size)',
+                fontWeight: 600,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: 'var(--muted-foreground)',
+              }}
+            >
+              {c.k}
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.7rem',
+                color: 'var(--foreground)',
+                textAlign: 'right',
+                maxWidth: '58%',
+                wordBreak: 'break-word',
+              }}
+            >
+              {c.v}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export type DocsSegmentedOption<T extends string> = { value: T; label: string };
+
+export function DocsSegmented<T extends string>({
+  value,
+  onChange,
+  options,
+  ariaLabel,
+}: {
+  value: T;
+  onChange: (next: T) => void;
+  options: readonly DocsSegmentedOption<T>[];
+  ariaLabel: string;
+}) {
+  return (
+    <div
+      role="tablist"
+      aria-label={ariaLabel}
+      style={{
+        display: 'inline-flex',
+        flexWrap: 'wrap',
+        gap: '0.35rem',
+        padding: '0.35rem',
+        borderRadius: 'var(--radius-full)',
+        border: '1px solid var(--border)',
+        background: 'var(--background)',
+        boxShadow: 'var(--shadow-1)',
+      }}
+    >
+      {options.map((opt) => {
+        const on = opt.value === value;
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            role="tab"
+            aria-selected={on}
+            onClick={() => onChange(opt.value)}
+            style={{
+              border: 'none',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'var(--type-caption-size)',
+              fontWeight: 600,
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+              padding: '0.45rem 0.85rem',
+              borderRadius: 'var(--radius-full)',
+              color: on ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
+              background: on
+                ? 'linear-gradient(135deg, var(--primary) 0%, var(--primary-accent) 100%)'
+                : 'transparent',
+              boxShadow: on ? 'var(--shadow-2)' : 'none',
+              transition:
+                'background var(--duration-fast) var(--ease-out-smooth), color var(--duration-fast) var(--ease-out-smooth), box-shadow var(--duration-fast) var(--ease-out-smooth)',
+            }}
+          >
+            {opt.label}
+          </button>
+        );
+      })}
     </div>
   );
 }

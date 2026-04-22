@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   HomeIcon,
   LightbulbIcon,
@@ -10,6 +11,7 @@ import {
   MenuIcon,
   XIcon,
 } from 'lucide-react';
+import { EmberGlyph } from './EmberGlyph';
 
 interface NavItem {
   id: string;
@@ -48,7 +50,7 @@ export function Sidebar({
 
   return (
     <>
-      {/* Mobile toggle button */}
+      {/* Mobile toggle */}
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
         style={{
@@ -74,18 +76,24 @@ export function Sidebar({
       </button>
 
       {/* Mobile backdrop */}
-      {isMobileOpen && (
-        <div
-          onClick={() => setIsMobileOpen(false)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'color-mix(in srgb, black 40%, transparent)',
-            zIndex: 40,
-          }}
-          className="md:hidden"
-        />
-      )}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            onClick={() => setIsMobileOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'color-mix(in srgb, black 40%, transparent)',
+              zIndex: 40,
+            }}
+            className="md:hidden"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Sidebar */}
       <aside
@@ -99,7 +107,7 @@ export function Sidebar({
           borderRight: '1px solid var(--border)',
           display: 'flex',
           flexDirection: 'column',
-          transition: 'all var(--duration-normal) var(--ease-out-smooth)',
+          transition: 'width var(--duration-normal) var(--ease-out-smooth)',
           zIndex: 50,
           overflowX: 'hidden',
         }}
@@ -115,25 +123,31 @@ export function Sidebar({
             gap: '0.75rem',
           }}
         >
-          <EmberGlyph />
-          {!isCollapsed && (
-            <span
-              style={{
-                fontFamily: 'var(--type-display-m-family)',
-                fontSize: '1.25rem',
-                fontWeight: 400,
-                color: 'var(--foreground)',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Krowe
-            </span>
-          )}
+          <EmberGlyph animated size={16} />
+          <AnimatePresence>
+            {!isCollapsed && (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.12 }}
+                style={{
+                  fontFamily: 'var(--type-display-m-family)',
+                  fontSize: '1.25rem',
+                  fontWeight: 400,
+                  color: 'var(--foreground)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Krowe
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Main nav */}
         <nav style={{ flex: 1, padding: '1rem 0', overflowY: 'auto' }}>
-          <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{ marginBottom: '1.5rem', position: 'relative' }}>
             {mainItems.map((item) => (
               <NavItemButton
                 key={item.id}
@@ -148,15 +162,9 @@ export function Sidebar({
             ))}
           </div>
 
-          <div
-            style={{
-              height: '1px',
-              background: 'var(--border)',
-              margin: '0 1rem 1.5rem',
-            }}
-          />
+          <div style={{ height: '1px', background: 'var(--border)', margin: '0 1rem 1.5rem' }} />
 
-          <div>
+          <div style={{ position: 'relative' }}>
             {bottomItems.map((item) => (
               <NavItemButton
                 key={item.id}
@@ -173,13 +181,7 @@ export function Sidebar({
         </nav>
 
         {/* User pod */}
-        <div
-          style={{
-            padding: '1rem',
-            borderTop: '1px solid var(--border)',
-            position: 'relative',
-          }}
-        >
+        <div style={{ padding: '1rem', borderTop: '1px solid var(--border)', position: 'relative' }}>
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
             style={{
@@ -192,21 +194,17 @@ export function Sidebar({
               border: 'none',
               borderRadius: 'var(--radius-md)',
               cursor: 'pointer',
-              transition: 'all var(--duration-fast) var(--ease-out-smooth)',
+              transition: 'background var(--duration-fast) var(--ease-out-smooth)',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--background)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'transparent';
-            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--background)')}
+            onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
           >
             <div
               style={{
                 width: '32px',
                 height: '32px',
                 borderRadius: '50%',
-                background: 'var(--primary)',
+                background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-accent) 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -219,68 +217,72 @@ export function Sidebar({
             >
               {userAvatar || userName.charAt(0).toUpperCase()}
             </div>
-            {!isCollapsed && (
-              <>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: 'var(--type-body-size)',
-                    color: 'var(--foreground)',
-                    fontWeight: 500,
-                    flex: 1,
-                    textAlign: 'left',
-                  }}
+            <AnimatePresence>
+              {!isCollapsed && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.1 }}
+                  style={{ display: 'flex', alignItems: 'center', flex: 1, gap: '0.5rem', overflow: 'hidden' }}
                 >
-                  {userName}
-                </span>
-                <ChevronDownIcon
-                  size={16}
-                  style={{
-                    color: 'var(--muted-foreground)',
-                    transform: showUserMenu ? 'rotate(180deg)' : 'rotate(0)',
-                    transition: 'transform var(--duration-fast) var(--ease-out-smooth)',
-                  }}
-                />
-              </>
-            )}
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 'var(--type-body-size)',
+                      color: 'var(--foreground)',
+                      fontWeight: 500,
+                      flex: 1,
+                      textAlign: 'left',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {userName}
+                  </span>
+                  <ChevronDownIcon
+                    size={16}
+                    style={{
+                      color: 'var(--muted-foreground)',
+                      transform: showUserMenu ? 'rotate(180deg)' : 'rotate(0)',
+                      transition: 'transform var(--duration-fast) var(--ease-out-smooth)',
+                      flexShrink: 0,
+                    }}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
 
-          {showUserMenu && !isCollapsed && (
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '100%',
-                left: '1rem',
-                right: '1rem',
-                marginBottom: '0.5rem',
-                background: 'var(--background)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-md)',
-                boxShadow: 'var(--shadow-3)',
-                padding: '0.5rem',
-                animation: 'slide-up var(--duration-fast) var(--ease-out-smooth)',
-              }}
-            >
-              <UserMenuItem label="Settings" />
-              <UserMenuItem label="Sign out" />
-              <UserMenuItem label="Help" />
-            </div>
-          )}
+          <AnimatePresence>
+            {showUserMenu && !isCollapsed && (
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 6 }}
+                transition={{ duration: 0.15 }}
+                style={{
+                  position: 'absolute',
+                  bottom: '100%',
+                  left: '1rem',
+                  right: '1rem',
+                  marginBottom: '0.5rem',
+                  background: 'var(--background)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 'var(--radius-md)',
+                  boxShadow: 'var(--shadow-3)',
+                  padding: '0.5rem',
+                }}
+              >
+                <UserMenuItem label="Settings" />
+                <UserMenuItem label="Sign out" />
+                <UserMenuItem label="Help" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </aside>
-
-      <style>{`
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </>
   );
 }
@@ -317,28 +319,51 @@ function NavItemButton({
           ? 'color-mix(in oklch, var(--foreground) 4%, transparent)'
           : 'transparent',
         border: 'none',
-        borderLeft: isActive ? '2px solid var(--primary)' : '2px solid transparent',
         color: isActive ? 'var(--primary)' : 'var(--foreground)',
         cursor: 'pointer',
-        transition: 'all var(--duration-fast) var(--ease-out-smooth)',
+        transition: 'background var(--duration-fast) var(--ease-out-smooth), color var(--duration-fast) var(--ease-out-smooth)',
         position: 'relative',
       }}
     >
+      {/* Sliding active indicator */}
+      {isActive && (
+        <motion.div
+          layoutId="nav-indicator"
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: '2px',
+            background: 'var(--primary)',
+            borderRadius: '0 2px 2px 0',
+          }}
+          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+        />
+      )}
+
       <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
         {item.icon}
       </span>
-      {!isCollapsed && (
-        <span
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 'var(--type-body-s-size)',
-            fontWeight: isActive ? 600 : 400,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {item.label}
-        </span>
-      )}
+
+      <AnimatePresence>
+        {!isCollapsed && (
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'var(--type-body-s-size)',
+              fontWeight: isActive ? 600 : 400,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {item.label}
+          </motion.span>
+        )}
+      </AnimatePresence>
     </button>
   );
 }
@@ -361,28 +386,10 @@ function UserMenuItem({ label }: { label: string }) {
         color: 'var(--foreground)',
         textAlign: 'left',
         cursor: 'pointer',
-        transition: 'all var(--duration-fast) var(--ease-out-smooth)',
+        transition: 'background var(--duration-fast) var(--ease-out-smooth)',
       }}
     >
       {label}
     </button>
-  );
-}
-
-function EmberGlyph() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ flexShrink: 0 }}
-    >
-      <circle cx="8" cy="8" r="6" fill="var(--primary)" opacity="0.2" />
-      <circle cx="8" cy="8" r="4" fill="var(--primary)" opacity="0.4" />
-      <circle cx="8" cy="8" r="2.5" fill="var(--primary)" />
-      <circle cx="9" cy="7" r="1" fill="var(--primary-accent)" />
-    </svg>
   );
 }

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CheckIcon } from 'lucide-react';
+import { useMouseTilt } from '../hooks/useMouseTilt';
 
 interface SelectionCardProps {
   title: string;
@@ -18,96 +19,145 @@ export function SelectionCard({
   disabled = false,
   onClick,
 }: SelectionCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  const { ref, style: tiltStyle, onMouseMove, onMouseLeave } = useMouseTilt(2);
+  const [showRing, setShowRing] = useState(false);
+  const [prevSelected, setPrevSelected] = useState(selected);
 
-  const borderColor = selected
-    ? 'color-mix(in oklch, var(--primary) 50%, transparent)'
-    : 'var(--border)';
-
-  const backgroundColor = selected
-    ? 'color-mix(in oklch, var(--primary) 8%, var(--background))'
-    : 'var(--background)';
+  useEffect(() => {
+    if (selected && !prevSelected) {
+      setShowRing(true);
+      const t = setTimeout(() => setShowRing(false), 400);
+      return () => clearTimeout(t);
+    }
+    setPrevSelected(selected);
+  }, [selected, prevSelected]);
 
   return (
-    <button
-      onClick={!disabled ? onClick : undefined}
-      disabled={disabled}
-      onMouseEnter={() => !disabled && setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        position: 'relative',
-        width: '100%',
-        padding: '1.5rem',
-        background: backgroundColor,
-        border: `2px solid ${borderColor}`,
-        borderRadius: 'var(--radius-lg)',
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        textAlign: 'left',
-        transition: 'all var(--duration-normal) var(--ease-out-smooth)',
-        transform: isHovered && !disabled ? 'translateY(-2px)' : 'translateY(0)',
-        boxShadow: isHovered && !disabled ? 'var(--shadow-2)' : 'var(--shadow-1)',
-        opacity: disabled ? 0.5 : 1,
-      }}
+    <div
+      ref={ref}
+      onMouseMove={!disabled ? onMouseMove : undefined}
+      onMouseLeave={!disabled ? onMouseLeave : undefined}
+      style={{ ...tiltStyle, position: 'relative' }}
     >
-      {selected && (
-        <div
+      <button
+        onClick={!disabled ? onClick : undefined}
+        disabled={disabled}
+        style={{
+          position: 'relative',
+          width: '100%',
+          padding: '1.5rem',
+          background: selected
+            ? 'color-mix(in oklch, var(--primary) 8%, var(--background))'
+            : 'var(--background)',
+          border: `2px solid ${selected
+            ? 'color-mix(in oklch, var(--primary) 50%, transparent)'
+            : 'var(--border)'}`,
+          borderRadius: 'var(--radius-lg)',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+          textAlign: 'left',
+          transition: 'border-color var(--duration-normal) var(--ease-out-smooth), background var(--duration-normal) var(--ease-out-smooth), box-shadow var(--duration-normal) var(--ease-out-smooth)',
+          boxShadow: selected ? 'var(--shadow-2)' : 'var(--shadow-1)',
+          opacity: disabled ? 0.5 : 1,
+          display: 'block',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Ring draw on select */}
+        {showRing && <SelectionRing />}
+
+        {/* Check badge */}
+        {selected && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '1rem',
+              right: '1rem',
+              width: '26px',
+              height: '26px',
+              borderRadius: '50%',
+              background: 'var(--primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              animation: 'fade-up-in 200ms var(--ease-spring) forwards',
+            }}
+          >
+            <CheckIcon size={14} color="white" strokeWidth={3} />
+          </div>
+        )}
+
+        {illustration && (
+          <div
+            style={{
+              marginBottom: '1.25rem',
+              color: selected ? 'var(--primary)' : 'var(--muted-foreground)',
+              transition: 'color var(--duration-fast) var(--ease-out-smooth)',
+            }}
+          >
+            {illustration}
+          </div>
+        )}
+
+        <h3
           style={{
-            position: 'absolute',
-            top: '1rem',
-            right: '1rem',
-            width: '28px',
-            height: '28px',
-            borderRadius: '50%',
-            background: 'var(--primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            animation: 'check-pop var(--duration-normal) var(--ease-out-smooth)',
+            fontFamily: 'var(--type-h3-family)',
+            fontSize: 'var(--type-h3-size)',
+            fontWeight: 'var(--type-h3-weight)',
+            color: selected ? 'var(--primary)' : 'var(--foreground)',
+            marginBottom: '0.375rem',
+            transition: 'color var(--duration-fast) var(--ease-out-smooth)',
           }}
         >
-          <CheckIcon size={16} color="white" strokeWidth={3} />
-        </div>
-      )}
+          {title}
+        </h3>
 
-      {illustration && (
-        <div style={{ marginBottom: '1rem', opacity: 0.9 }}>
-          {illustration}
-        </div>
-      )}
+        <p
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 'var(--type-body-s-size)',
+            lineHeight: 'var(--type-body-s-line-height)',
+            color: 'var(--muted-foreground)',
+            margin: 0,
+          }}
+        >
+          {description}
+        </p>
+      </button>
+    </div>
+  );
+}
 
-      <h3
+function SelectionRing() {
+  return (
+    <svg
+      style={{
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        overflow: 'visible',
+      }}
+      preserveAspectRatio="none"
+      aria-hidden
+    >
+      <rect
+        x="1"
+        y="1"
+        width="calc(100% - 2px)"
+        height="calc(100% - 2px)"
+        rx="14"
+        fill="none"
+        stroke="var(--primary)"
+        strokeWidth="2"
+        strokeLinecap="round"
+        pathLength="1"
+        strokeDasharray="1"
+        strokeDashoffset="1"
         style={{
-          fontFamily: 'var(--type-h3-family)',
-          fontSize: 'var(--type-h3-size)',
-          fontWeight: 'var(--type-h3-weight)',
-          lineHeight: 'var(--type-h3-line-height)',
-          letterSpacing: 'var(--type-h3-letter-spacing)',
-          color: 'var(--foreground)',
-          marginBottom: '0.5rem',
+          animation: 'ring-draw 320ms var(--ease-out-smooth) forwards',
         }}
-      >
-        {title}
-      </h3>
-
-      <p
-        style={{
-          fontFamily: 'var(--type-body-family)',
-          fontSize: 'var(--type-body-size)',
-          lineHeight: 'var(--type-body-line-height)',
-          color: 'var(--muted-foreground)',
-          margin: 0,
-        }}
-      >
-        {description}
-      </p>
-
-      <style>{`
-        @keyframes check-pop {
-          0% { transform: scale(0); opacity: 0; }
-          50% { transform: scale(1.1); }
-          100% { transform: scale(1); opacity: 1; }
-        }
-      `}</style>
-    </button>
+      />
+    </svg>
   );
 }
