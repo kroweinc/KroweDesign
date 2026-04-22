@@ -292,6 +292,18 @@
   50% { opacity: 0; }
 }
 
+@keyframes brand-mark-breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.03); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .brand-mark-animated img {
+    animation: brand-mark-breathe 2.8s ease-in-out infinite;
+    transform-origin: center center;
+  }
+}
+
 /* Noise texture overlay — applied via .noise-surface class */
 .noise-surface::after {
   content: '';

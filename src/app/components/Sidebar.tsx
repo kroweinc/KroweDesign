@@ -11,7 +11,7 @@ import {
   MenuIcon,
   XIcon,
 } from 'lucide-react';
-import { EmberGlyph } from './EmberGlyph';
+import { BrandMark } from './BrandMark';
 
 interface NavItem {
   id: string;
@@ -123,7 +123,7 @@ export function Sidebar({
             gap: '0.75rem',
           }}
         >
-          <EmberGlyph animated size={16} />
+          <BrandMark size={28} animated />
           <AnimatePresence>
             {!isCollapsed && (
               <motion.span

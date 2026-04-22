@@ -5,7 +5,7 @@ import { ContentHeader } from '@/app/components/ContentHeader';
 import { VerdictCard } from '@/app/components/VerdictCard';
 import { Button } from '@/app/components/Button';
 import { Input } from '@/app/components/Input';
-import { EmberGlyph } from '@/app/components/EmberGlyph';
+import { BrandMark } from '@/app/components/BrandMark';
 import { useInView } from '@/app/hooks/useInView';
 import { useCountUp } from '@/app/hooks/useCountUp';
 import {
@@ -159,7 +159,7 @@ export function ValidationReportPattern() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                <EmberGlyph size={14} />
+                <BrandMark size={18} />
                 <h3
                   style={{
                     fontFamily: 'var(--type-h2-family)',

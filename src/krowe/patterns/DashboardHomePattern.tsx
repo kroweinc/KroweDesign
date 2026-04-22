@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Sidebar } from '@/app/components/Sidebar';
 import { ContentHeader } from '@/app/components/ContentHeader';
 import { Button } from '@/app/components/Button';
-import { EmberGlyph } from '@/app/components/EmberGlyph';
+import { BrandMark } from '@/app/components/BrandMark';
 import { useMouseTilt } from '@/app/hooks/useMouseTilt';
 import { PlusIcon, ClockIcon } from 'lucide-react';
 
@@ -85,7 +85,7 @@ export function DashboardHomePattern() {
                     gap: '0.5rem',
                   }}
                 >
-                  <EmberGlyph size={14} />
+                  <BrandMark size={18} />
                   Your first read
                 </motion.h2>
                 <motion.div
@@ -157,7 +157,7 @@ export function DashboardHomePattern() {
                   gap: '0.5rem',
                 }}
               >
-                <EmberGlyph size={14} />
+                <BrandMark size={18} />
                 Suggested next steps from Krowe
               </h3>
 

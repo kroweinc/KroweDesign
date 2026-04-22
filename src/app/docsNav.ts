@@ -52,3 +52,14 @@ export const DOCS_NAV_GROUPS: DocsNavGroup[] = [
 
 /** Flat list for lookups and legacy helpers */
 export const DOCS_NAV_ITEMS: DocsNavItem[] = DOCS_NAV_GROUPS.flatMap((g) => g.items);
+
+/** Slug after `/docs/` (e.g. `colors`), or null on `/docs` only. */
+export function getDocsSlugFromPathname(pathname: string): string | null {
+  const m = pathname.match(/\/docs\/([^/?#]+)/);
+  return m?.[1] ?? null;
+}
+
+export function getDocsNavLabelForSlug(slug: string | null): string | undefined {
+  if (!slug) return undefined;
+  return DOCS_NAV_ITEMS.find((i) => i.path === slug)?.label;
+}

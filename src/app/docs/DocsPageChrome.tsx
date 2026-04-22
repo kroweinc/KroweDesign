@@ -256,11 +256,11 @@ export function DocInfoCard({ title, description, code }: { title: string; descr
   );
 }
 
-/** Standard max-width shell for every /docs/* page body. */
+/** Width cap for /docs/* page body — horizontal padding comes from `DocsLayout`. */
 export const docsPageWrap: CSSProperties = {
   maxWidth: '1200px',
   margin: '0 auto',
-  padding: '3rem 2rem',
+  padding: 0,
 };
 
 export type DocsHeroChip = { k: string; v: string };

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { motion } from 'motion/react';
-import { EmberGlyph } from './components/EmberGlyph';
-import { ArrowRightIcon } from 'lucide-react';
+import { BrandMark } from './components/BrandMark';
+import { ArrowRightIcon, BookOpenIcon } from 'lucide-react';
 
 const CATEGORIES = [
   {
@@ -71,7 +71,7 @@ export function DesignSystemLanding() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-          <EmberGlyph size={20} animated />
+          <BrandMark size={22} animated />
           <span
             style={{
               fontFamily: 'var(--font-sans)',
@@ -137,7 +137,7 @@ export function DesignSystemLanding() {
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}
           >
-            <EmberGlyph size={52} animated />
+            <BrandMark size={56} animated />
           </motion.div>
 
           <motion.h1
@@ -172,6 +172,8 @@ export function DesignSystemLanding() {
           >
             Every token, component, and pattern that makes Krowe feel like Krowe. Built for the product. Open to the team.
           </motion.p>
+
+          <HeroDocsCta />
         </div>
       </section>
 
@@ -237,6 +239,155 @@ export function DesignSystemLanding() {
         </div>
       </section>
     </div>
+  );
+}
+
+function HeroDocsCta() {
+  const [hover, setHover] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.44, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        marginTop: 'clamp(2rem, 4vw, 2.75rem)',
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '0 0.5rem',
+      }}
+    >
+      <Link
+        to="/docs"
+        aria-label="Open design system documentation"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        style={{
+          position: 'relative',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 'clamp(0.75rem, 2vw, 1rem)',
+          padding: '0.5rem 0.5rem 0.5rem 0.65rem',
+          borderRadius: 'var(--radius-full)',
+          textDecoration: 'none',
+          color: 'inherit',
+          outline: 'none',
+          background:
+            'linear-gradient(135deg, color-mix(in oklch, var(--background) 92%, var(--primary) 6%) 0%, color-mix(in oklch, var(--background) 88%, var(--primary) 10%) 100%)',
+          border: '1px solid color-mix(in oklch, var(--primary) 22%, var(--border))',
+          boxShadow: [
+            hover
+              ? '0 18px 48px color-mix(in oklch, var(--primary) 14%, transparent), 0 0 0 1px color-mix(in oklch, var(--primary) 18%, transparent)'
+              : '0 10px 32px color-mix(in oklch, var(--foreground) 5%, transparent)',
+            focused ? '0 0 0 3px color-mix(in oklch, var(--primary) 35%, transparent)' : '',
+          ]
+            .filter(Boolean)
+            .join(', '),
+          transform: hover ? 'translateY(-4px) scale(1.01)' : 'translateY(0) scale(1)',
+          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease',
+        }}
+      >
+        <span
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: '-1px',
+            borderRadius: 'inherit',
+            background:
+              'linear-gradient(120deg, transparent 0%, color-mix(in oklch, var(--primary) 12%, transparent) 42%, transparent 62%)',
+            opacity: hover ? 1 : 0.35,
+            pointerEvents: 'none',
+            transition: 'opacity 0.45s ease',
+          }}
+        />
+
+        <span
+          style={{
+            position: 'relative',
+            display: 'grid',
+            placeItems: 'center',
+            width: 'clamp(40px, 10vw, 48px)',
+            height: 'clamp(40px, 10vw, 48px)',
+            borderRadius: '50%',
+            background: 'var(--primary-soft)',
+            border: '1px solid color-mix(in oklch, var(--primary) 28%, transparent)',
+            flexShrink: 0,
+            boxShadow: 'inset 0 1px 0 color-mix(in oklch, white 35%, transparent)',
+          }}
+        >
+          <BookOpenIcon
+            size={22}
+            strokeWidth={2}
+            style={{
+              color: 'var(--primary)',
+              transform: hover ? 'rotate(-6deg) scale(1.06)' : 'rotate(0) scale(1)',
+              transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+          />
+        </span>
+
+        <span style={{ position: 'relative', textAlign: 'left', minWidth: 0 }}>
+          <span
+            style={{
+              display: 'block',
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 700,
+              fontSize: 'clamp(0.9375rem, 2.2vw, 1.0625rem)',
+              letterSpacing: '-0.02em',
+              color: 'var(--foreground)',
+              lineHeight: 1.2,
+            }}
+          >
+            Walk the library
+          </span>
+          <span
+            style={{
+              display: 'block',
+              marginTop: '0.2rem',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.6875rem',
+              fontWeight: 500,
+              letterSpacing: '0.05em',
+              color: 'var(--muted-foreground)',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxWidth: 'min(52vw, 280px)',
+            }}
+          >
+            docs · tokens · patterns · voice
+          </span>
+        </span>
+
+        <span
+          style={{
+            position: 'relative',
+            display: 'grid',
+            placeItems: 'center',
+            width: 'clamp(36px, 9vw, 42px)',
+            height: 'clamp(36px, 9vw, 42px)',
+            borderRadius: '50%',
+            marginRight: '0.2rem',
+            flexShrink: 0,
+            background: 'linear-gradient(145deg, var(--primary) 0%, var(--primary-accent) 100%)',
+            color: 'white',
+            boxShadow: 'inset 0 1px 0 color-mix(in oklch, white 22%, transparent)',
+          }}
+        >
+          <ArrowRightIcon
+            size={18}
+            strokeWidth={2.25}
+            style={{
+              transform: hover ? 'translateX(4px)' : 'translateX(0)',
+              transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+          />
+        </span>
+      </Link>
+    </motion.div>
   );
 }
 

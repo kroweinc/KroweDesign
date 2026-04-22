@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { EmberGlyph } from '@/app/components/EmberGlyph';
+import { BrandMark } from '@/app/components/BrandMark';
 
 /** Krowe default — matches patterns and CSS `--ease-out-smooth`. */
 export const KROWE_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -104,7 +104,7 @@ export function MarketingHeadlineEntranceDemo() {
         transition={{ duration: 0.3, delay: 0.08 }}
         style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.65rem' }}
       >
-        <EmberGlyph size={18} />
+        <BrandMark size={20} />
         <span
           style={{
             fontFamily: 'var(--font-sans)',

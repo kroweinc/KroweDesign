@@ -1,4 +1,4 @@
-import{c as i,r as m,j as e,L as a}from"./index-Dlo4b_h9.js";import{d as p,D as h,a as y,b as g,c as x,e as r,f as v,g as u,h as n,j as f,k as l}from"./DocsPageChrome-Cae9XNQc.js";import{M as j}from"./message-circle-DsMhXey0.js";/**
+import{c as i,r as m,j as e,L as a}from"./index-Cs5wa1gg.js";import{d as p,D as h,a as y,b as g,c as x,e as r,f as v,g as u,h as n,j as f,k as l}from"./DocsPageChrome-DxjRjZ_3.js";import{M as j}from"./message-circle-DuJv1iaw.js";/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.

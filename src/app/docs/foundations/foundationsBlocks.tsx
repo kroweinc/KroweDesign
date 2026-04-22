@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { CSSProperties } from 'react';
 import { CopyIcon, CheckIcon } from 'lucide-react';
+import { BrandMark } from '@/app/components/BrandMark';
 
 export const bodyStyle = {
   fontFamily: 'var(--font-sans)',
@@ -252,15 +253,9 @@ export function BezierCurveDemo() {
   );
 }
 
+/** Docs motif scale row — raster brand mark at common sizes. */
 export function EmberGlyphScaled({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
-      <circle cx="8" cy="8" r="6" fill="var(--primary)" opacity="0.2" />
-      <circle cx="8" cy="8" r="4" fill="var(--primary)" opacity="0.4" />
-      <circle cx="8" cy="8" r="2.5" fill="var(--primary)" />
-      <circle cx="9" cy="7" r="1" fill="var(--primary-accent)" />
-    </svg>
-  );
+  return <BrandMark size={size} decorative />;
 }
 
 export function MotifDosDonts({ dos, donts }: { dos: string[]; donts: string[] }) {

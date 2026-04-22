@@ -1,5 +1,5 @@
 import { useTypewriter } from '../hooks/useTypewriter';
-import { EmberGlyph } from './EmberGlyph';
+import { BrandMark } from './BrandMark';
 
 interface AIRewritePanelProps {
   userAnswer: string;
@@ -98,7 +98,7 @@ export function AIRewritePanel({
               marginBottom: '1rem',
             }}
           >
-            <EmberGlyph size={14} />
+            <BrandMark size={16} />
             <div
               style={{
                 fontFamily: 'var(--font-sans)',

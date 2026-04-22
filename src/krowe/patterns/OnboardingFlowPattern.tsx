@@ -4,7 +4,7 @@ import { Button } from '@/app/components/Button';
 import { Input } from '@/app/components/Input';
 import { SelectionCard } from '@/app/components/SelectionCard';
 import { ProgressIndicator } from '@/app/components/ProgressIndicator';
-import { EmberGlyph } from '@/app/components/EmberGlyph';
+import { BrandMark } from '@/app/components/BrandMark';
 import { LightbulbIcon, UsersIcon, DollarSignIcon } from 'lucide-react';
 
 type StepType = 'reflection' | 'selection' | 'quick';
@@ -91,7 +91,7 @@ export function OnboardingFlowPattern() {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <EmberGlyph size={20} />
+            <BrandMark size={22} />
             <span style={{ fontFamily: 'var(--type-display-m-family)', fontSize: '1.25rem', color: 'var(--foreground)' }}>
               Krowe
             </span>
@@ -185,7 +185,7 @@ export function OnboardingFlowPattern() {
                 animate={{ scale: 1.4 }}
                 transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
               >
-                <EmberGlyph size={80} animated />
+                <BrandMark size={88} animated />
               </motion.div>
 
               {/* Orbit dots */}

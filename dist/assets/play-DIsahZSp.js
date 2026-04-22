@@ -1,6 +1,6 @@
-import{c}from"./index-Dlo4b_h9.js";/**
+import{c as o}from"./index-Cs5wa1gg.js";/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const e=[["path",{d:"M20 6 9 17l-5-5",key:"1gmf2c"}]],t=c("check",e);export{t as C};
+ */const c=[["polygon",{points:"6 3 20 12 6 21 6 3",key:"1oa8hb"}]],e=o("play",c);export{e as P};

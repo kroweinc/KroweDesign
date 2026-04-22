@@ -2,7 +2,7 @@ import type { FormEvent } from 'react';
 import { motion } from 'motion/react';
 import { Button } from '@/app/components/Button';
 import { Input } from '@/app/components/Input';
-import { EmberGlyph } from '@/app/components/EmberGlyph';
+import { BrandMark } from '@/app/components/BrandMark';
 import { MailIcon } from 'lucide-react';
 
 const FORM_ITEMS = ['google', 'divider', 'email', 'password', 'submit'] as const;
@@ -57,7 +57,7 @@ export function AuthSplitPattern() {
           style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '380px' }}
         >
           <div style={{ marginBottom: '2.5rem' }}>
-            <EmberGlyph size={40} animated />
+            <BrandMark size={44} animated />
           </div>
 
           <h1

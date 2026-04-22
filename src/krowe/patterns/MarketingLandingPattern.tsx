@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion } from 'motion/react';
-import { EmberGlyph } from '@/app/components/EmberGlyph';
+import { BrandMark } from '@/app/components/BrandMark';
 import { useInView } from '@/app/hooks/useInView';
 import { useCountUp } from '@/app/hooks/useCountUp';
 
@@ -79,7 +79,7 @@ function HeroSection() {
           transition={{ duration: 0.3, delay: 0.1 }}
           style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}
         >
-          <EmberGlyph size={20} />
+          <BrandMark size={22} />
           <span
             style={{
               fontFamily: 'var(--font-sans)',
@@ -269,7 +269,7 @@ function ReportPreviewCard() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <EmberGlyph size={12} />
+          <BrandMark size={14} />
           <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', fontWeight: 600, color: 'var(--muted-foreground)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             Validation Report
           </span>
@@ -472,7 +472,7 @@ function Footer() {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-        <EmberGlyph size={14} />
+        <BrandMark size={18} />
         <span style={{ fontFamily: 'var(--type-display-m-family)', fontSize: '1.125rem', color: 'var(--foreground)' }}>
           Krowe
         </span>
